@@ -46,9 +46,13 @@ def main():
             futures.append(executor.submit(do_http_request))
         
         for future in futures:
-            print(future.result())
-
-
+            result = future.result()
+            if(args.callback_url):
+                url = args.callback_url.format(result)
+                content = requests.get(url).text
+                print("URL: {}, content: {}".format(url, content))
+            else:
+                print("CPF: {}".format(result))
 
 if __name__ == '__main__':
     main()
