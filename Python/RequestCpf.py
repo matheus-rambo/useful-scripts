@@ -21,10 +21,11 @@ parser = argparse.ArgumentParser()
 required = parser.add_argument_group('required arguments')
 optional = parser.add_argument_group('optional arguments')
 
-required.add_argument('-quantity',           type=int,                required=True,   dest='quantity',                           help='How many cpf are need.')
-optional.add_argument('--callback-url',      type=str,  default=None, required=False,  dest='callback_url',                       help='URL to be called after the cpf is generated.')
-optional.add_argument('--number-of-threads', type=int,  default=1,    required=False,  dest='number_of_threads',                  help='How many threads will be used.')
-optional.add_argument('--cpf',               type=int,  default=None, required=False,  dest='cpfs',              action='append', help='If you want to use this cpf')
+required.add_argument('-quantity',           type=int,                required=True,  dest='quantity',                           help='How many cpf are need.')
+optional.add_argument('--callback-url',      type=str,  default=None, required=False, dest='callback_url',                       help='URL to be called after the cpf is generated.')
+optional.add_argument('--number-of-threads', type=int,  default=1,    required=False, dest='number_of_threads',                  help='How many threads will be used.')
+optional.add_argument('--cpf',               type=int,  default=None, required=False, dest='cpfs',              action='append', help='If you want to use this cpf')
+optional.add_argument('--timeout',           type=int,  default=60,   required=False, dest='timeout',                            help='Request timeout.') 
 
 url = "https://www.4devs.com.br/ferramentas_online.php"
 payload = {
@@ -38,13 +39,13 @@ args=parser.parse_args()
 def do_request() -> str: 
     cpf = None
     if args.cpfs is None:
-        cpf = requests.post(args.url, data=payload).text
+        cpf = requests.post(args.url, data=payload, timeout=args.timeout).text
     else:
         index = random.randint(0, len(args.cpfs) - 1)
         cpf = str(args.cpfs[index])
     if(args.callback_url):
         url = args.callback_url.format(cpf)
-        return requests.get(url).text
+        return requests.get(url, timeout=args.timeout).text
     else:
         return cpf
 
@@ -57,7 +58,6 @@ def main():
     with ThreadPoolExecutor(args.number_of_threads) as executor:
         for index in range(0, args.quantity):
             executor.submit(do_request).add_done_callback(callback)        
-
         executor.shutdown(wait=True)
 
 if __name__ == '__main__':
