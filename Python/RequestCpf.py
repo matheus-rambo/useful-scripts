@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 
 """
-    A small program to request a valid cpf and do an optional action after the request
-    We use the 4devs tool to generate valid cpfs. 
-    Besides the cpf is valid, it may not be from a real person.
+    A small program that can generate a valid cpf(using web tool), or, use a user defined list of cpfs, then, call a callback url.
 
-    4Devs tool: https://www.4devs.com.br/gerador_de_cpf
-    They have very useful tools.
+    For generating and using a cpf:
+        We use the 4devs tool to generate valid cpfs. 
+        Besides the cpf is valid, it may not be from a real person.
+
+        4Devs tool: https://www.4devs.com.br/gerador_de_cpf
+        They have very useful tools.
 """
 
 import argparse
