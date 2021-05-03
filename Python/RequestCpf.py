@@ -29,8 +29,8 @@ optional.add_argument('--number-of-threads', type=int,   default=1,    required=
 optional.add_argument('--cpf',               type=int,   default=None, required=False, dest='cpfs',              action='append', help='If you want to use this cpf')
 optional.add_argument('--timeout',           type=float, default=60,   required=False, dest='timeout',                            help='Request timeout.') 
 
-url = "https://www.4devs.com.br/ferramentas_online.php"
-payload = {
+request_cpf_url = "https://www.4devs.com.br/ferramentas_online.php"
+request_cpf_payload = {
     "acao": "gerar_cpf",
     "pontuacao": "N",
     "cpf_estado": ""
@@ -41,7 +41,7 @@ args=parser.parse_args()
 def do_request() -> str: 
     cpf = None
     if args.cpfs is None:
-        cpf = requests.post(url, data=payload, timeout=args.timeout).text
+        cpf = requests.post(request_cpf_url, data=request_cpf_payload, timeout=args.timeout).text
     else:
         index = random.randint(0, len(args.cpfs) - 1)
         cpf = str(args.cpfs[index])
