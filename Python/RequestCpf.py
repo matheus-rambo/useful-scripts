@@ -16,6 +16,7 @@ import requests
 from concurrent.futures import ThreadPoolExecutor
 import random
 import functools
+import datetime
 
 
 parser = argparse.ArgumentParser()
@@ -47,7 +48,13 @@ def do_request() -> str:
         cpf = str(args.cpfs[index])
     if(args.callback_url):
         url = args.callback_url.format(cpf)
-        return requests.get(url, timeout=args.timeout).text
+        try:
+            init_time = datetime.datetime.now()
+            value = requests.get(url, timeout=args.timeout).text 
+            end_time = datetime.datetime.now()
+            return "Start time: {}, End Time. {}, Value: {}.".format(init_time.strftime('%Y-%m-%d %H:%M:%S'), end_time.strftime('%Y-%m-%d %H:%M:%S'), value)
+        except requests.ReadTimeout:
+            return "Request timeout for: {} timeout: {}".format(url, args.timeout)
     else:
         return cpf
 
@@ -57,10 +64,16 @@ def callback(future):
 
 def main(): 
 
+    init_time = datetime.datetime.now()
+
     with ThreadPoolExecutor(args.number_of_threads) as executor:
         for index in range(0, args.quantity):
             executor.submit(do_request).add_done_callback(callback)        
         executor.shutdown(wait=True)
+
+    end_time = datetime.datetime.now()  
+ 
+    print("Requests made: {}, Start time: {}, End time: {}".format(args.quantity, init_time.strftime('%Y-%m-%d %H:%M:%S'), end_time.strftime('%Y-%m-%d %H:%M:%S')))
 
 if __name__ == '__main__':
     main()
