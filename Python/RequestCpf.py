@@ -52,7 +52,7 @@ def do_request() -> str:
             init_time = datetime.datetime.now()
             value = requests.get(url, timeout=args.timeout).text 
             end_time = datetime.datetime.now()
-            return "Start time: {}, End Time. {}, Value: {}.".format(init_time.strftime('%Y-%m-%d %H:%M:%S'), end_time.strftime('%Y-%m-%d %H:%M:%S'), value)
+            return "Start time: {}, End Time. {}, Value: {}.".format(init_time.strftime('%Y-%m-%d %H:%M:%S.%f'), end_time.strftime('%Y-%m-%d %H:%M:%S.%f'), value)
         except requests.ReadTimeout:
             return "Request timeout for: {} timeout: {}".format(url, args.timeout)
     else:
