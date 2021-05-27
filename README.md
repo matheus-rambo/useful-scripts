@@ -1,4 +1,3 @@
-# useful-scripts
-This repository contains some scripts that help me in something
-
+# useful-things
+This repository contains some scripts and configuration files.
 
