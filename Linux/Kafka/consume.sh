@@ -22,7 +22,7 @@ case $envirnoment in
     ;;
 esac
 
-command_to_execute="${BINARY} --bootstrap-server ${kafka_brooker} --group ${group} --topic ${topic}"
+command_to_execute="${BINARY} --bootstrap-server ${kafka_brooker} --group ${group} --topic ${topic} --from-beginning"
 
 
 if [ $limit_messages == "yes" ]
