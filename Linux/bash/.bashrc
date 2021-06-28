@@ -27,7 +27,7 @@ function git_content {
   if [ $? -eq 0 ]; then
     # there is a git repository
     local branch 
-    branch=$(git branch --show-current)
+    branch=$(git branch --show-current 2>/dev/null || git branch | awk ' $1 == "*"  { print $2 } ')
     echo -e "\nCurrent Branch: \033[1;36m${branch}\033[0m"
   else 
     # does nothing
