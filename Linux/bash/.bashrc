@@ -37,7 +37,7 @@ function git_content {
 
 
 # The command prompt
-PS1='\[\033[1;36m\[[\d \@]\[\033[0;31m\] \[\033[0;31m\]\u\[\033[0m\] at box \[\033[0;31m\]\h\[\033[0m\] is in \[\033[0;31m\]\W\[\033[0m\].\nLast exit: \[\033[0;32m\]\[`last_process_status`\]\[\033[0m\] Running: \[\033[0;32m\]\[`process_running`\]\[\033[0m\] Bash PID: \[\033[0;32m\]\[$BASH_PID\]\[\033[0m\] Executed: \[\033[0;32m\]\#\[\033[0m\]\[`git_content`\]\n\$ '
+PS1='\[\033[1;36m\[[\d \@]\[\033[0;31m\] \[\033[0;31m\]\u\[\033[0m\] at box \[\033[0;31m\]\h\[\033[0m\] is in \[\033[0;31m\]\w\[\033[0m\].\nLast exit: \[\033[0;32m\]\[`last_process_status`\]\[\033[0m\] Running: \[\033[0;32m\]\[`process_running`\]\[\033[0m\] Bash PID: \[\033[0;32m\]\[$BASH_PID\]\[\033[0m\] Executed: \[\033[0;32m\]\#\[\033[0m\]\[`git_content`\]\n\$ '
 
 # Does not store to history commands that begin with whitespace
 HISTCONTROL=ignorespace
